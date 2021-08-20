@@ -20,6 +20,11 @@ The basic directory structure looks as follows:
 
 ```text
 ├── Resources
+│   ├── app
+│   │   └── storefront
+│   │       └── src
+│   │           └── scss
+│   │               └── base.scss
 │   ├── cms
 │   │   └── blocks
 │   │       ├── my-first-block
@@ -32,18 +37,19 @@ The basic directory structure looks as follows:
 │   │   └── storefront
 │   │       └── cms
 │   │           └── block
-│   │               ├── my-first-block.html.twig
-│   │               └── my-second-block.html.twig
+│   │               ├── cms-block-my-first-block-component.html.twig // Pattern: cms-block-{$block}-component.html.twig
+│   │               └── cms-block-my-second-block-component.html.twig // Pattern: cms-block-{$block}-component.html.twig
 │   └── cms.xml
 └── manifest.xml
 ```
 
 Each CMS block defined within your `cms.xml` must have a directory matching the block's name in `Resources/cms/blocks/`.
-In those directories you shape your blocks by supplying a `preview.html` containing the template used for displaying a preview.
+In those directories you shape your blocks for the CMS editor in the Administration by supplying a `preview.html` containing the template used for displaying a preview.
 Styling the preview is possible from the `styles.css`.
 
 {% hint type=info %}
 Due to technical limitations it's not possible to use templating engines \(like Twig\) or preprocessors \(like Sass\) for rendering and styling the preview.
+On the other hand you are completely free in how you style your block preview.
 {% endhint %}
 
 ## Defining blocks
@@ -182,9 +188,9 @@ Unlike adding blocks from a plugin, blocks provided from an app will be automati
 ## Storefront representation
 
 Providing the storefront representation of your blocks works just the same as in the [plugin example](../../../plugins/content/cms/add-cms-block.md#storefront-representation).
-In `<app root>/Resources/views/storefront/block/` a Twig template file matching your block's technical name is expected, e.g.
+In `<app root>/Resources/views/storefront/block/` a Twig template matching the pattern `cms-block-{$block}-component.html.twig` is expected, e.g.:
 
-{% code title="<app root>/Resources/views/storefront/block/my-first-block.html.twig" %}
+{% code title="<app root>/Resources/views/storefront/block/cms-block-my-first-block-component.html.twig" %}
 ```text
 {% sw_extends '@Storefront/storefront/block/cms-block-image-text.html.twig' %}
 ```
